@@ -19,9 +19,9 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    testImplementation(kotlin("test"))
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
+    testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -36,14 +36,13 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "11"
     }
 }
-tasks.test {
-    useJUnitPlatform()
-}
 
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
+tasks.test {
+    useJUnitPlatform()
+}
 detekt {
     autoCorrect = true
 }
