@@ -50,7 +50,6 @@ class IntegrationTest {
      */
     /**
      * Skip SSL certificate verification in Spring Rest Template
-     * Copied from [https://blog.codeleak.pl/2016/02/skip-ssl-certificate-verification-in.html]
      */
     fun skipSSL(){
 
