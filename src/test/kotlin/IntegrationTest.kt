@@ -13,13 +13,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
-import org.springframework.web.client.RestTemplate
 import java.security.cert.X509Certificate
-
 
 /**
  * Integration test for the class LAB2
- *
  * Collection of integration tests to check the operation of the server.
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -43,18 +40,13 @@ class IntegrationTest {
     @Autowired
     private lateinit var restTemplate: TestRestTemplate
 
-
-    /**
-     * Tests that creates a modified Apache HTTP client that connects to the server address and checks that the code of
-     * status and the body returned by the server is correct.
-     */
     /**
      * Skip SSL certificate verification in Spring Rest Template
      */
-    fun skipSSL(){
+    fun skipSSL() {
 
         val acceptingTrustStrategy =
-            TrustStrategy { chain: Array<X509Certificate?>?, authType: String? -> true }
+            TrustStrategy { _: Array<X509Certificate?>?, _: String? -> true }
 
         val sslContext = SSLContexts.custom()
             .loadTrustMaterial(null, acceptingTrustStrategy)
@@ -69,9 +61,11 @@ class IntegrationTest {
         val requestFactory = HttpComponentsClientHttpRequestFactory()
 
         requestFactory.httpClient = httpClient
-
-        val restTemplate = RestTemplate(requestFactory)
     }
+    /**
+     * Tests that creates a modified Apache HTTP client that connects to the server address and checks that the code of
+     * status and the body returned by the server is correct.
+     */
     @Test
     fun testHome() {
 
@@ -85,25 +79,18 @@ class IntegrationTest {
              * First one if the actual value and the second is a matcher object.
              */
             assertThat(statusCode).isEqualTo(HttpStatus.NOT_FOUND)
-
         }
     }
     @Test
-    fun testTime(){
+    fun testTime() {
         with(restTemplate.getForEntity("https://localhost:$port/time", String::class.java)) {
-
             skipSSL()
-
             /**
              * The method assertThat is one of the JUnit methods from the Assert object that can be used to check if a
              * specific value match to an expected one. It primarily accepts 2 parameters.
              * First one if the actual value and the second is a matcher object.
              */
             assertThat(statusCode).isEqualTo(HttpStatus.OK)
-
         }
-
-
     }
-
 }
