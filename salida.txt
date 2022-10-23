@@ -1,0 +1,5 @@
+
+> Task :detekt FAILED
+/Users/pedroaibar/7cuatri/IG/lab2-web-server/src/test/kotlin/IntegrationTest.kt:1:1: The package declaration does not match the actual file location. [InvalidPackageDeclaration]
+
+1 actionable task: 1 executed
